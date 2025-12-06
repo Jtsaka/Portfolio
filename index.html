@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jake's - Engineering Portfolio</title>
+    <style>
+    header {
+    background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative; 
+    overflow: hidden;   
+    z-index: 1;         
+    }
+
+    header::before, header::after {
+        content: "-----------------------------";
+        position: absolute; 
+        top: 40%;
+        color: rgb(255, 255, 255);
+        transform: translateY(-50%);
+        font-size: 3rem;
+        opacity: 0.5;
+        z-index: 0; 
+        pointer-events: none; 
+    }
+
+    header::before {
+        left: 20px;
+    }
+
+    header::after {
+        right: 20px;
+    }
+
+    header h1, header p {
+        position: relative;
+        z-index: 2; 
+    }
+        :root {
+            --primary: #546b9b;
+            --dark: #343e55;
+            --light: #d9ecff;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -3rem auto 2rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .tab-content.active {
+            display: block; 
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .card h4 {
+            margin-top: -0.5rem;   
+            margin-bottom: 0.5rem; 
+            font-size: 1rem;       
+            font-weight: 700;      
+            color: var(--dark);
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h4 + p {
+            margin-top: 0;
+        }
+
+        .card ul.project-list {
+            color: var(--text-light);
+            padding-left: 1.5rem;     
+            margin-top: -1rem;        
+            margin-bottom: 1.5rem;    
+            line-height: 1.6;
+        }
+
+        .card h4 + ul.project-list {
+            margin-top: 0;  
+        }
+
+        .card ul.project-list li {
+            margin-bottom: 0.5rem;    
+        }
+
+        .tech-stack {
+            font-size: 0.85rem;
+            color: #64748b;
+            background: #f1f5f9;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;       
+            gap: 0.5rem;         
+        }
+
+        .btn-repo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background-color: #f8fafc;
+            color: var(--dark);
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-top: auto;
+        }
+
+        .btn-repo:hover {
+            background-color: var(--dark);
+            color: white;
+            border-color: var(--dark);
+        }
+
+        .gallery-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .gallery-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem;
+        }
+
+        .image-item {
+            text-align: center;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 3rem 1rem; }
+            .container { margin-top: -1rem; }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- GENETIC ALGO STYLES --- */
+        #genetic .image-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        #genetic .image-item img {
+            width: 50%;
+        }
+
+        @media (max-width: 600px) {
+            #genetic .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        #asr .image-grid {
+            align-items: center; 
+        }
+
+        #asr .image-item:nth-of-type(1) img {
+            width: 50%;
+        }
+        
+        #asr .image-item:nth-of-type(2) img {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Jake's Portfolio</h1>
+        <p>Robotics &bull; Computer Vision &bull; AI Algorithms </p>
+    </header>
+
+    <div class="container">
+        
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'robotics')">Robotics</button>
+            <button class="tab-btn" onclick="openTab(event, 'drone')">Drone Trajectory</button>
+            <button class="tab-btn" onclick="openTab(event, 'asr')">ASR Transcription</button>
+            <button class="tab-btn" onclick="openTab(event, 'genetic')">Genetic Algorithm</button>
+        </div>
+
+        <div id="robotics" class="tab-content active">
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-category">Documentation</span>
+                    <h3>General Documentation</h3>
+                    <img src="imgs\Robot_CAD.jpg" alt="robot_cad" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;">
+                    <p>
+                        The central hub for the physical build process. This repository contains the CAD files, wiring diagrams, 
+                        and assembly instructions for the Swerve Drive robot and other mechanical implementations.
+                    </p>
+                    <a href="https://github.com/Jtsaka/Robot_portfolio" target="_blank" class="btn-repo">View Repository &rarr;</a>
+                </div>
+                <div class="card">
+                    <span class="card-category">Hardware & Control</span>
+                    <h3>3D Printed Swerve Drive</h3>
+                    <div class="tech-stack">
+                        <span>• <strong>Python</strong></span>
+                        <span>• <strong>C++</strong></span>
+                        <span>• <strong>Arduino</strong></span>
+                        <span>• <strong>UART</strong></span>
+                    </div>
+                    <p>
+                        Code repository for running a custom 3D printed Swerve Drive. The system utilizes Modern Robotics 12V DC motors 
+                        for drive and 35kg Continuous Servos for module rotation.
+                    </p>
+                    
+                    <h4>Integration</h4>
+                    
+                    <p>
+                        An edge device (RPi 5/Jetson) runs Python scripts for Computer Vision (YOLOv8) 
+                        to detect objects and ASR (Faster Whisper) for voice commands. It calculates angle/distance vectors 
+                        and transmits them via UART to the Arduino, which handles the kinematics using a strict OOP structure (Motors, Servos, Encoders).
+                    </p>
+                    <a href="https://github.com/Jtsaka/3dpSwerveDrive_Code/tree/main" target="_blank" class="btn-repo">View Code &rarr;</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Edge Computing</span>
+                    <h3>ASR-CV Integration</h3>
+                    <div class="tech-stack">
+                        <span>• <strong>Python</strong></span>
+                        <span>• <strong>Raspberry Pi5</strong></span>
+                        <span>• <strong>NVIDIA Jetson Orin Nano</strong></span>
+                        <span>• <strong>YOLOv8</strong></span>
+                        <span>• <strong>OpenCV</strong></span>
+                        <span>• <strong>Linux Ubuntu</strong></span>
+                    </div>
+                    <p>
+                        The companion repository for the Swerve Drive. This houses the Python logic for the Raspberry Pi/Jetson. 
+                        It includes the implementation of the YOLOv8 model for bottle detection and distance calculation, 
+                        as well as the Faster Whisper implementation for processing voice commands into drive vectors.
+                    </p>
+                    <a href="https://github.com/Jtsaka/ASR-CV_Robot" target="_blank" class="btn-repo">View Repository &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="drone" class="tab-content">
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-category">Optimized Flight</span>
+                    <h3>Drone Trajectory (Fall '25)</h3>
+                    <div class="tech-stack"><strong>Python • NumPy • Pandas • Plotly</strong></div>
+                    <p>
+                        Plan, simulate, and visualize drone photo-capture flight over a rectangular area using boustrophedon pattern. Given a camera model and user dataset specs (overlap, sidelap, height, scan size, exposure), the project:
+                    </p>
+                    <ul class="project-list">
+                        <li>Computes image spacing from camera geometry</li>
+                        <li>Lays out capture waypoints in a serpentine grid</li>
+                        <li>Assigns a safe capture speed from GSD & exposure (motion-blur bound)</li>
+                        <li>Computes segment timing with a trapezoidal/triangular velocity profile</li>
+                        <li>Visualizes both the 2D flight path and the velocity profile (using plotly express)</li>
+                    </ul>
+                    
+                    <h4>Conventions & Units</h4>
+                    
+                    <ul class="project-list">
+                        <li>World frame: flat ground plane, nadir-pointing camera, canonical pose</li>
+                        <li>Units: distances in meters, sensor sizes in mm, focal lengths in pixels, image sizes in pixels.</li>
+                        <li>Overlap & sidelap are ratios in [0, 1].</li>
+                    </ul>
+                    
+                    <h4>Influencing factors</h4>
+                    
+                    <ul class="project-list">
+                        <li>Change exposure => changes v_blur (and timing/velocity profiles), not waypoint positions</li>
+                        <li>Change height => scales footprint & spacing => changes waypoint density (sparse or populated)</li>
+                        <li>Change overlap/sidelap => changes spacing (denser grid = higher overlap).</li>
+                        <li>Change accel/v_max => changes profile shape (triangle vs trapezoid) and segment times.</li>
+                    </ul>    
+                    <a href="https://github.com/Jtsaka/drone-trajectory-fall-25" target="_blank" class="btn-repo">View Repository &rarr;</a>
+                </div> 
+            </div>
+
+            <div class="gallery-section">
+                <div class="gallery-title">Visual Work of Path plan + Velocity optimization</div>
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="path_planning_imgs\droneflightplanex1.jpg" alt="Drone Flight path">
+                        <div class="image-caption">Drone Flight path</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="path_planning_imgs\droneflightplanex2.jpg" alt="Velocity -- Trapezoidal Profiling">
+                        <div class="image-caption">Velocity -- Trapezoidal Profiling</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="path_planning_imgs\droneflightplanex3.jpg" alt="Velocity -- Triangular Profiling">
+                        <div class="image-caption">Velocity -- Triangular Profiling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="asr" class="tab-content">
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-category">Audio Processing</span>
+                    <h3>ASR to Text</h3>
+                    <p>
+                        This project aims to implement Automatic Speech Recognition (ASR) using the Open AI's Faster Whisper model. 
+                        To capture audio input from a user, the Python library PyAudio was utilized. 
+                        The library allows flexibility in adjusting settings for the desired recordings. 
+                        The audio file is then saved as a .wav file via the Python wave library.
+                    </p>
+                    <h4>Use Case</h4>
+                    <p>
+                        Ensure that all necessary dependencies are installed or configured in the working environment (see requirements.txt for details). 
+                        When the script is run, it prompts the user to "Start Recording Audio." When audio is detected, the state will change to "Voice detected, recording." 
+                        From there, PyAudio will keep recording any audio input from the user until 3 seconds of silence is detected ("Stop recording"). 
+                        Upon 3 seconds of silence, the audio is processed and stored as a .wav file as "AudioRec_.wav" with incremental numbering for the file name. 
+                        If not created, an AudioRecordings directory is created to store the audio recordings for easier management.
+                    </p>
+                    <p>
+                        When PyAudio detects further audio input following "Stop recording," it will start recording once more, and stop after silence. 
+                        To optimize this process, multi-threading was utilized so that if the user wants to record more audio after a file has already been processed, the transcription process will run in the background via a daemon thread, while allowing the recording function to occur.
+                        Transcription processes are placed in a queue for the worker thread to process and transcribe.
+                    </p>
+                    <p>
+                        If the user wishes to terminate the process, they can say "stop processing" or hit Ctrl + c to terminate the process.
+                    </p>
+                    <a href="https://github.com/Jtsaka/ASR-to-Text" target="_blank" class="btn-repo">View Repository &rarr;</a>
+                    <div class="gallery-section">
+                    <div class="gallery-title">Visual Work of ASR Script</div>
+                    <div class="image-grid">
+                        <div class="image-item">
+                            <img src="imgs\AudioTranscriptionDirectories.jpg" alt="Directories example">
+                            <div class="image-caption">Screen shot of AudioRecordings directory created and storing audio files</div>
+                        </div>
+                        <div class="image-item">
+                            <img src="imgs\AudioTranscriptionExample.jpg" alt="Velocity -- Trapezoidal Profiling">
+                            <div class="image-caption">Successful audio transcription process run</div>
+                        </div>
+                    </div>
+            </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="genetic" class="tab-content">
+            <div class="card-grid">
+                <div class="card">
+                    <span class="card-category">AI Algorithms</span>
+                    <h3>Circle-Based Image Approximation</h3>
+                    <div class="tech-stack"><strong>Python • Pillow • Random • Genetic Algorithms</strong></div>
+                    <p>
+                        This project utilizes a Genetic Algorithm (GA) to approximate target images using semi-transparent circles. 
+                        An "individual" is defined as a list of circle "genes" (position, radius, color, alpha). 
+                        <br><br>
+                        This project uses a genetic algorithm (GA) to approximate a target image using many semi-transparent circles. 
+                        Each candidate solution (an individual) is defined as a list of circle "genes" where every gene encodes the circle’s position, radius, color, and alpha transparency.
+                        The core image operations are handled with the <em>Pillow</em> library. 
+                        The <em>Random</em> library is also utilized for gene mutation and randomization. 
+                        For each individual, the script draws all of its circles onto a blank canvas and compares the resulting image to the target image. 
+                        The GA then iteratively evolves the population of individuals to minimize the pixel-wise color difference from the target.
+                    </p>
+                    <h4>Key components include:</h4>
+                    <ul class="project-list">
+                        <li><em>create_initial_population</em> – randomly generates an initial population of circle-based images.</li>
+                        <li><em>_render_individual_</em> – draws all circles for a single individual and returns the rendered image.</li>
+                        <li><em>_fitness_function_</em> – evaluates how close a rendered image is to the target (lower error = higher fitness).</li>
+                        <li><em>_selection, crossover, mutation, mutate_gene_</em> – standard GA operators adapted for image approximation.</li>
+                        <li><em>_genetic_algorithm_</em> – runs the full GA loop across multiple generations.</li>
+                        <li><em>_generate_circles_</em> – convenience function that loads an input image, runs the GA, and saves the final result.</li>
+                    </ul>
+                    <h4>Use Case</h4>
+                    <ul class="project-list">
+                        <li>Ensure Python and the required libraries are installed (should be Pillow and Random). </li>
+                        <li>Place the image you want to approximate in a directory (i.e., InputImages/).</li>
+                        <li>In the generate_circles specify the path to that image and tune parameters: </li>
+                    </ul>
+                    
+                    <p style="font-family: monospace; background: #f1f5f9; padding: 1rem; border-radius: 6px;">
+                        (i.e. generate_circles(r"InputImages\IMAGE_NAME.png",<br>
+                        &nbsp;&nbsp;population_size=100,<br>
+                        &nbsp;&nbsp;num_circles=500,<br>
+                        &nbsp;&nbsp;generations=100,<br>
+                        &nbsp;&nbsp;mutation_rate=0.075))
+                    </p>
+
+                    <h4>Tuning Parameters</h4>
+                    <ul class="project-list">
+                        <li><em>population_size</em> – Larger populations explore more candidates each generation but take longer to evaluate. </li>
+                        <li><em>num_circles</em> – More circles can capture finer details but increase rendering and evaluation cost.</li>
+                        <li><em>generations</em> – More generations usually improve the approximation but increase runtime and processing.</li>
+                        <li><em>mutation_rate</em> – Controls how often genes are altered; too low = very little change, will not deviate -- too high = too random and unpredictable.</li>
+                    </ul>
+                    <a href="https://github.com/Jtsaka/Genetic-Algorithm-Image-Reconstruction" target="_blank" class="btn-repo">View Repository &rarr;</a>
+                </div>
+            </div>
+
+            <div class="gallery-section">
+                <div class="gallery-title">Visual Evolution of Circles: Google Logo Approximation</div>
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="InputImages\googlelogoresized.png" alt="Google Logo (Target)">
+                        <div class="image-caption">Target Input Image</div>
+                    </div>
+
+                    <div class="image-item">
+                        <img src="Output\Circle_google_100.png" alt="100 Generations">
+                        <div class="image-caption">Generation 100 (Low Fitness)</div>
+                    </div>
+
+                    <div class="image-item">
+                        <img src="Output\Circle_google_1000b.png" alt="1000 Generations">
+                        <div class="image-caption">Generation 1000 (High Fitness)</div>
+                    </div>
+                </div>
+                <div class="gallery-title">Visual Evolution of Circles: Microsoft Logo Approximation</div>
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="InputImages\microsoftlogoresized.png" alt="Microsoft Logo (Target)">
+                        <div class="image-caption">Target Input Image</div>
+                    </div>
+
+                    <div class="image-item">
+                        <img src="Output\Circle_microsoft_100.png" alt="100 Generations">
+                        <div class="image-caption">Generation 100 (Low Fitness)</div>
+                    </div>
+
+                    <div class="image-item">
+                        <img src="Output\Circle_microsoft_1000.png" alt="1000a Generations">
+                        <div class="image-caption">Generation 1000 (High Fitness)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jtsaka. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
+</body>
+</html>
